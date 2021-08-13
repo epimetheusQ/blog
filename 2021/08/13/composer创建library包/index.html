@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          composer创建library包 - epimetheus的博客 | epimetheusQ&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://example.com/2021/08/13/composer创建library包/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">epimetheus&#39;s blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#composer" title="composer">composer</a>
+                        
+                    </div>
+                    <h1>composer创建library包</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by epimetheusQ on
+                        2021-08-13
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>参考demo的例子：<a target="_blank" rel="noopener" href="https://github.com/epimetheusQ/omnimate.git">https://github.com/epimetheusQ/omnimate.git</a></li>
+<li>git 强制推送   git push -u origin master -f （强制推送，慎用）</li>
+<li>在composer init时，如果创建一个项目，写project，如果想写一个类似于hyperf/validation的话，就需要选择library，其余暂未研究过。</li>
+<li>即使你开了翻墙，正常推送代码，有时候也会推送代码/分支失败。</li>
+<li>在composer init时，起composer包名，不能使用驼峰的形式，会报错，只能全部小写。如：epimetheus/omnimate</li>
+<li>报错：<em>Could not find a version of package epimetheus/omnimate matching your minimum-stability (dev). Require it with an e<br>xplicit version constraint allowing its desired stability.</em><br>原因： <strong>新包是需要composer 升级2.0+ 才能安装</strong>，package.org会提示：<br><em>This package is not installable via Composer 1.x, please make sure you upgrade to Composer 2+. Read more about our Composer 1.x deprecation policy.</em></li>
+</ol>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li>github 创建仓库</li>
+<li>本地git初始化</li>
+<li>初始化composer至项目</li>
+<li>将github的包注册至Package.org</li>
+<li>git 更新包</li>
+</ol>
+<h2 id="步骤实现"><a href="#步骤实现" class="headerlink" title="步骤实现"></a>步骤实现</h2><h4 id="github-创建仓库"><a href="#github-创建仓库" class="headerlink" title="github 创建仓库"></a>github 创建仓库</h4><p>进入：<a target="_blank" rel="noopener" href="https://github.com/">https://github.com</a><br>登录或者注册账号，创建一个仓库，如：<a target="_blank" rel="noopener" href="https://github.com/epimetheusQ/omnimate">https://github.com/epimetheusQ/omnimate</a></p>
+<h4 id="本地git初始化"><a href="#本地git初始化" class="headerlink" title="本地git初始化"></a>本地git初始化</h4><blockquote>
+<ol>
+<li><p>在命令行中，输入“git init”，使omnimate文件夹加入git管理；</p>
+</li>
+<li><p>输入“git add .”，将omnimate文件夹全部内容添加到git。</p>
+</li>
+<li><p>输入“git commit -m “first commit””（git commit -m “提交信息”）</p>
+</li>
+<li><p>从github将仓库内的文件pull下来 (以免push的时候出现冲突报错)<br>git pull <a target="_blank" rel="noopener" href="https://github.com/epimetheusQ/omnimate.git">https://github.com/epimetheusQ/omnimate.git</a> master –allow-unrelated-histories</p>
+</li>
+<li><p>输入 git remote add origin <a target="_blank" rel="noopener" href="https://github.com/epimetheusQ/omnimate.git%EF%BC%88git">https://github.com/epimetheusQ/omnimate.git（git</a> remote add origin 你自己的https地址），连接你的guthub仓库。</p>
+</li>
+<li><p>输入“git push -u origin master”，上传项目到Github。这里会要求输入Github的账号密码，按要求输入自己的就可以。当你在github上创建包时，默认分支是”main”，有可能会导致异常。</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="初始化composer至项目"><a href="#初始化composer至项目" class="headerlink" title="初始化composer至项目"></a>初始化composer至项目</h4><ol>
+<li>git初始化后，进入项目目录 然后输入“<strong>composer init</strong>”命令开始为该项目初始化composer</li>
+<li>填一些生成composer.json的配置信息<blockquote>
+<p>Package name 包的名称 (前面最好用自己的github账号名(保证唯一性),后面用仓库名) : <strong>epimetheus/omnimate</strong></p>
+<p>description：包的描述。 : 随便填，此处填写的描述，会在git中出现。</p>
+<p>Author 包的作者 : 随便填，例如：enpmetheus</p>
+<p>Minimum Stability 输入最低版本类型 : <strong>dev</strong> (这里我们选择开发版)，也可以选择 <strong>stable</strong></p>
+<p>Package Type 项目类型 : 如果想写类库写<strong>library</strong>，否则<strong>project</strong></p>
+<p>License [] 授权类型 随便填 : MIT</p>
+<p>Would you like to define your dependencies (require) interactively [yes]? 是否选择依赖其他第三方库 依赖选择yes 否则选择 no,可以先不填写，选择yes后根据自己,目所依赖的库进行搜索 然后进行版本号选择</p>
+<p>Would you like to define your dev dependencies (require-dev) interactively [yes]?  是否需要require-dev 选择yes 否则选择 no</p>
+<p>Do you confirm generation [yes]? <strong>yes</strong> 是否生成composer.json 确认compose.json文件没有问题 选择yes</p>
+</blockquote>
+</li>
+</ol>
+<p><em><strong>如果使用github 这里还会提问 是否把生成的vendor目录放到.gitignore文件隐藏 这里选择 yes然后当前目录下会出现一个composer.json 文件 然后将初始化生成的composer.json文件上传到github仓库（ <a target="_blank" rel="noopener" href="https://github.com/epimetheusQ/omnimate.git">https://github.com/epimetheusQ/omnimate.git</a> )</strong></em></p>
+<h6 id="我们看下生成的结果："><a href="#我们看下生成的结果：" class="headerlink" title="我们看下生成的结果："></a>我们看下生成的结果：</h6><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&#123;    </span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;epimetheus/omnimate&quot;</span>,    </span><br><span class="line">    <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;composer创建library，创建一个omnimate的包，减少phper的工作时间，让他们尽情的玩耍！抽空恋爱。&quot;</span>,    </span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;library&quot;</span>,    </span><br><span class="line">    <span class="attr">&quot;license&quot;</span>: <span class="string">&quot;MIT&quot;</span>,    </span><br><span class="line">    <span class="attr">&quot;authors&quot;</span>: [        </span><br><span class="line">        &#123;           </span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;wuerqiQs&quot;</span>,            </span><br><span class="line">            <span class="attr">&quot;email&quot;</span>: <span class="string">&quot;it_527@163.com&quot;</span>        </span><br><span class="line">            &#125;    </span><br><span class="line">        ],    </span><br><span class="line">    <span class="attr">&quot;minimum-stability&quot;</span>: <span class="string">&quot;stable&quot;</span>,    </span><br><span class="line">    <span class="attr">&quot;require&quot;</span>: &#123;        </span><br><span class="line">        <span class="attr">&quot;php&quot;</span>: <span class="string">&quot;&gt;=7.2&quot;</span>    </span><br><span class="line">    &#125;,    </span><br><span class="line">    <span class="attr">&quot;autoload&quot;</span>: &#123;        </span><br><span class="line">        <span class="attr">&quot;psr-4&quot;</span>: &#123;            </span><br><span class="line">            <span class="attr">&quot;Epimetheus\\Omnimate\\&quot;</span>: <span class="string">&quot;src/&quot;</span>        </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 其中autoload下面是我们自己添加的，psr<span class="number">-4</span>中的文件目录是当你使用composer require 目录后，项目会自动根据这个目录去引入你的文件，我们的git地址是：https:<span class="comment">//github.com/epimetheusQ/omnimate，所以我们的文件目录设计为如上的目录地址</span></span><br><span class="line"></span><br><span class="line">目录格式：</span><br><span class="line">epimetheus</span><br><span class="line">-omnimate</span><br><span class="line">--src</span><br><span class="line">--composer.json</span><br><span class="line">--license.md</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="将github的包注册至Package-org"><a href="#将github的包注册至Package-org" class="headerlink" title="将github的包注册至Package.org"></a>将github的包注册至Package.org</h4><blockquote>
+<ol>
+<li>进入<a target="_blank" rel="noopener" href="https://packagist.org/">https://packagist.org</a>  首先要在 Packagist 上注册账号并登录（可以用 GitHub 直接登录）</li>
+<li>点击顶部导航条中的 Summit 按钮在输入框中输入 GitHub 上的刚才包地址，如：<a target="_blank" rel="noopener" href="https://github.com/epimetheusQ/omnimate">https://github.com/epimetheusQ/omnimate</a></li>
+<li>点击 Check 按钮 Packagist 会去检测此仓库地址的代码是否符合 Composer 的 Package 包的要求检测正常的话，会出现 Submit 按钮，再点击一下 Submit 按钮，我们的包就提交到 Packagist 上了</li>
+</ol>
+</blockquote>
+<p>使用git hub 进行登录，git信息会自动同步至包中</p>
+<h4 id="git-更新包"><a href="#git-更新包" class="headerlink" title="git 更新包"></a>git 更新包</h4><blockquote>
+<p>发布到Packagist.org在发布到Packagist之前，我们需要在Github创建仓库来存储我们的代码才能提交到Packagist，最好是发布正式版本，进入我们仓库的Github主页，找到导航上“releases”，点击进去创建一个版本，填写好信息之后就可以发布版本了，或者在push到Github的时候带上tag标签推送</p>
+<p>git add .<br>git commit -m ‘xxx’<br>git push origin xxx分支<br> git tag v1.0 -a<br>git push –tags</p>
+</blockquote>
+<p>注意：我们包的命名空间是： Epimetheus\Omnimate{XXXX};</p>
+<h4 id="查看-package-org"><a href="#查看-package-org" class="headerlink" title="查看 package.org"></a>查看 package.org</h4><p>惊奇的发现，git上的tag已经上传至这里了。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p><strong>composer require epimetheus/omnimate</strong></p>
+<p>此处必须composer 2.0才能安装，如果不确定是1.x 还是 2.x，可以<br><strong>composer –version</strong><br>，如果是1.x ，使用<br><strong>composer self-update –2</strong><br>切换至 2.x</p>
+<h2 id="待解决问题"><a href="#待解决问题" class="headerlink" title="待解决问题"></a>待解决问题</h2><blockquote>
+<ol>
+<li>未了解版本稳定性机制</li>
+<li>版本给的略显随意</li>
+</ol>
+</blockquote>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/08/13/hexo的基本使用方式/" data-toggle="tooltip" data-placement="top" title="hexo的基本使用方式">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; epimetheus&#39;s blog 2021 
+                    <br>
+                    Theme by <a target="_blank" rel="noopener" href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a target="_blank" rel="noopener" href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://example.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://example.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
