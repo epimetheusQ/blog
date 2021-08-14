@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          日志增加request_id - epimetheus的博客 | epimetheusQ&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://example.com/2021/08/14/日志增加request-id/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">epimetheusQ</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#hyperf" title="hyperf">hyperf</a>
+                        
+                    </div>
+                    <h1>日志增加request_id</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by epimetheusQ on
+                        2021-08-14
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="日志增加request-id"><a href="#日志增加request-id" class="headerlink" title="日志增加request_id"></a>日志增加request_id</h1><blockquote>
+<p>日志增加request_id，可以通过关键字查看整个日志的链路信息，提升bug查找速度，以及外部对接进度。</p>
+</blockquote>
+<p>hyperf和传统的框架不同，传统框架可以通过request，在框架初始化时增加request_id，实现整个进程日志记录同一个request_id，但是hyperf是协程的方式运作的，当我们使用协程时，request_id会因为协程的使用而导致request_id记录有误，链路无法实现对齐。通过长时间的摸索，总结出一套完善的记录日志机制，用于hyperf1.1记录日志增加request_id。</p>
+<p>目前整体的思路是通过协程上下文增加request_id。</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h4 id="初始化logger组件时，monolog增加初始化的request-id"><a href="#初始化logger组件时，monolog增加初始化的request-id" class="headerlink" title="初始化logger组件时，monolog增加初始化的request_id"></a>初始化logger组件时，monolog增加初始化的request_id</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">declare(strict_types=<span class="number">1</span>);</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * This file is part of Hyperf.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @link     https://www.hyperf.io</span></span><br><span class="line"><span class="comment"> * @document https://hyperf.wiki</span></span><br><span class="line"><span class="comment"> * @contact  group@hyperf.io</span></span><br><span class="line"><span class="comment"> * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">namespace App\Kernel\Log;</span><br><span class="line"></span><br><span class="line">use Hyperf\Di\Annotation\Inject;</span><br><span class="line">use App\Service\UtilService;</span><br><span class="line">use Monolog\Processor\ProcessorInterface;</span><br><span class="line"></span><br><span class="line">class AppendExtraProcessor implements ProcessorInterface</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * @Inject()</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @var UtilService</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    public $utilService;</span><br><span class="line"></span><br><span class="line">    public function __invoke(array $records)</span><br><span class="line">    &#123;</span><br><span class="line">        $records[&#x27;extra&#x27;][&#x27;request_id&#x27;] = $this-&gt;utilService-&gt;getRequestId();</span><br><span class="line">        return $records;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至于说getRequestId()的日志方式，实际上是逐级循环，获取最顶级的Continue::id对应的request_id，如果没有，当前协程中set一个request_id，子协程获取当前协程的request_id，实现协程中的request_id统一。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public function getRequestId()</span><br><span class="line">&#123;</span><br><span class="line">    $coroutineId = Coroutine::id();</span><br><span class="line">    $requestId = &#x27;&#x27;;</span><br><span class="line"></span><br><span class="line">    while ($coroutineId &gt; <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">        $loopRequestId = Context::get(&#x27;requestId&#x27;, &#x27;&#x27;, $coroutineId);</span><br><span class="line">        if ($loopRequestId) &#123;</span><br><span class="line">            $requestId = $loopRequestId;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $pid = Coroutine::getPcid($coroutineId);</span><br><span class="line"></span><br><span class="line">        if (! empty($pid)) &#123;</span><br><span class="line">            $loopRequestPid = &#x27;&#x27;;</span><br><span class="line">            if (Context::has(&#x27;requestId&#x27;, $pid ?? 0)) &#123;</span><br><span class="line">                $loopRequestPid = Context::get(&#x27;requestId&#x27;, &#x27;&#x27;, $pid);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if ($loopRequestPid) &#123;</span><br><span class="line">                Context::copy($pid, [&#x27;requestId&#x27;]);</span><br><span class="line">                $requestId = $loopRequestPid;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if ($pid == <span class="number">-1</span> || $pid == &#x27;&#x27; || $pid == $coroutineId) &#123;</span><br><span class="line">            $genRequestId = session_create_id();</span><br><span class="line">            Context::set(&#x27;requestId&#x27;, $genRequestId);</span><br><span class="line">            $requestId = $genRequestId;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $coroutineId = $pid;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return $requestId;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="建立中间件，记录请求Log，并将request-id-set-到-协程上下文中"><a href="#建立中间件，记录请求Log，并将request-id-set-到-协程上下文中" class="headerlink" title="建立中间件，记录请求Log，并将request_id set 到 协程上下文中"></a>建立中间件，记录请求Log，并将request_id set 到 协程上下文中</h4><p>此时的协程处于初始化状态，也就是顶级，此处也可以在nginx中set一个 X-REQUEST-ID</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">namespace App\Middleware;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">use Hyperf\Di\Annotation\Inject;</span><br><span class="line">use Hyperf\Utils\Context;</span><br><span class="line">use Hyperf\Logger\LoggerFactory;</span><br><span class="line">use Psr\Container\ContainerInterface;</span><br><span class="line">use Psr\Http\Message\ResponseInterface;</span><br><span class="line">use Psr\Http\Message\ServerRequestInterface;</span><br><span class="line">use Psr\Http\Server\MiddlewareInterface;</span><br><span class="line">use Psr\Http\Server\RequestHandlerInterface;</span><br><span class="line">use Hyperf\HttpServer\Contract\ResponseInterface as HttpResponse;</span><br><span class="line"></span><br><span class="line">//记录请求日志中间件</span><br><span class="line">class RequestLogMiddleware implements MiddlewareInterface</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @Inject</span><br><span class="line">     * @var LoggerFactory</span><br><span class="line">     */</span><br><span class="line">    public $requestLog;</span><br><span class="line"></span><br><span class="line">    protected $response;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @var ContainerInterface</span><br><span class="line">     */</span><br><span class="line">    protected $container;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public function __construct(HttpResponse $response)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;response = $response;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        try&#123;</span><br><span class="line">            $time = date(&#x27;Y-m-d H:i:s&#x27;);</span><br><span class="line"></span><br><span class="line">            $headers = $request-&gt;getHeaders();</span><br><span class="line">            $requestId = isset($headers[&#x27;x-request-id&#x27;]) ? $headers[&#x27;x-request-id&#x27;][0] : session_create_id();</span><br><span class="line">            Context::set(&#x27;requestId&#x27;, $requestId);</span><br><span class="line">            </span><br><span class="line">            // todo 覆盖request_id，重写Context</span><br><span class="line">            $request = Context::override(ServerRequestInterface::class, function (ServerRequestInterface $request) use(&amp;$requestId) &#123;</span><br><span class="line">                $request = $request-&gt;withAddedHeader(&#x27;request_id&#x27;, $requestId);</span><br><span class="line">                return $request;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            $this-&gt;requestLog-&gt;get(&#x27;log&#x27;, &#x27;request&#x27;)-&gt;info(&quot;接口请求日志--$time&quot;, [</span><br><span class="line">                &#x27;postParam&#x27; =&gt; $request-&gt;getParsedBody(),</span><br><span class="line">                &#x27;getParam&#x27; =&gt; $request-&gt;getQueryParams(),</span><br><span class="line">                &#x27;uri&#x27; =&gt; $request-&gt;getServerParams(),</span><br><span class="line">                &#x27;headers&#x27; =&gt; $headers,</span><br><span class="line">                &#x27;file&#x27; =&gt; $request-&gt;getUploadedFiles()</span><br><span class="line">            ]);</span><br><span class="line"></span><br><span class="line">            return $handler-&gt;handle($request);</span><br><span class="line"></span><br><span class="line">        &#125;catch(\Exception $e)&#123;</span><br><span class="line"></span><br><span class="line">            return $this-&gt;response-&gt;json([&#x27;code&#x27; =&gt; 500,&#x27;message&#x27; =&gt; &#x27;请求初始化失败--&#x27;.$e-&gt;getMessage(),&#x27;data&#x27;=&gt;[]]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时记录一个请求接入的log就已经存在了request_id，这时候更改logger.log的config配置层，将AppendExtraProcessor加载至logger</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x27;request&#x27; =&gt; [</span><br><span class="line">    &#x27;handler&#x27; =&gt; [</span><br><span class="line">        &#x27;class&#x27; =&gt; Monolog\Handler\RotatingFileHandler::class,</span><br><span class="line">        &#x27;constructor&#x27; =&gt; [</span><br><span class="line">            &#x27;filename&#x27; =&gt; BASE_PATH . &#x27;/runtime/logs/api_request.log&#x27;,</span><br><span class="line">            &#x27;level&#x27; =&gt; Monolog\Logger::INFO,</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">    &#x27;formatter&#x27; =&gt; [</span><br><span class="line">        &#x27;class&#x27; =&gt; Monolog\Formatter\JsonFormatter::class,</span><br><span class="line">        &#x27;constructor&#x27; =&gt; [</span><br><span class="line">            &#x27;format&#x27; =&gt; <span class="literal">null</span>,</span><br><span class="line">            &#x27;dateFormat&#x27; =&gt; <span class="literal">null</span>,</span><br><span class="line">            &#x27;allowInlineLineBreaks&#x27; =&gt; <span class="literal">true</span>,</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">    &#x27;processors&#x27; =&gt; [</span><br><span class="line">        [</span><br><span class="line">            &#x27;class&#x27; =&gt; \App\Kernel\Log\AppendExtraProcessor::class,</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<p>此时，每一个记录至monolog的日志，都会有request_id。</p>
+<p>目前hyperf1.1中，如果直接使用co(function(){})的话，是无法获取有效的request_id，所以需要在外部协程环境下，先get出request_id，然后将request_id作为参数set进子协程中。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$requestId = Context::get(&#x27;request_id&#x27;);</span><br><span class="line">co(function () use ($requestId) &#123;</span><br><span class="line">    Context::set(&#x27;request_id&#x27;, $requestId);</span><br><span class="line">    $this-&gt;requestLog-&gt;get(&#x27;log&#x27;, &#x27;request&#x27;)-&gt;info(&#x27;xxxx&#x27;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这样就可以保证request_id一致。</p>
+<h4 id="sql日志记录request-id"><a href="#sql日志记录request-id" class="headerlink" title="sql日志记录request_id"></a>sql日志记录request_id</h4><p>因为sql是使用事件触发的形式，本人亲测无法获取正确的request_id，所以在RequestLogMiddler中，有这么一段代码：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$request = Context::override(ServerRequestInterface::class, function (ServerRequestInterface $request) use(&amp;$requestId) &#123;</span><br><span class="line">    $request = $request-&gt;withAddedHeader(&#x27;request_id&#x27;, $requestId);</span><br><span class="line">    return $request;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这一步是将request_id记录至request的header中，进入dbQueryListener页面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">declare(strict_types=1);</span><br><span class="line">/**</span><br><span class="line"> * This file is part of Hyperf.</span><br><span class="line"> *</span><br><span class="line"> * @link     https://www.hyperf.io</span><br><span class="line"> * @document https://doc.hyperf.io</span><br><span class="line"> * @contact  group@hyperf.io</span><br><span class="line"> * @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">namespace App\Listener;</span><br><span class="line"></span><br><span class="line">use Hyperf\Database\Events\QueryExecuted;</span><br><span class="line">use Hyperf\Event\Annotation\Listener;</span><br><span class="line">use Hyperf\Event\Contract\ListenerInterface;</span><br><span class="line">use Hyperf\Logger\LoggerFactory;</span><br><span class="line">use Hyperf\Utils\Arr;</span><br><span class="line">use Hyperf\Utils\Context;</span><br><span class="line">use Hyperf\Utils\Str;</span><br><span class="line">use Psr\Container\ContainerInterface;</span><br><span class="line">use Psr\Http\Message\ServerRequestInterface;</span><br><span class="line">use Psr\Http\Server\RequestHandlerInterface;</span><br><span class="line">use Psr\Log\LoggerInterface;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @Listener</span><br><span class="line"> */</span><br><span class="line">class DbQueryExecutedListener implements ListenerInterface</span><br><span class="line">&#123;</span><br><span class="line">    /**</span><br><span class="line">     * @var LoggerInterface</span><br><span class="line">     */</span><br><span class="line">    private $logger;</span><br><span class="line"></span><br><span class="line">    public function __construct(ContainerInterface $container)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;logger = $container-&gt;get(LoggerFactory::class)-&gt;get(&#x27;log&#x27;, &#x27;request&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function listen(): array</span><br><span class="line">    &#123;</span><br><span class="line">        return [</span><br><span class="line">            QueryExecuted::class,</span><br><span class="line">        ];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @param QueryExecuted $event</span><br><span class="line">     */</span><br><span class="line">    public function process(object $event)</span><br><span class="line">    &#123;</span><br><span class="line">        if ($event instanceof QueryExecuted) &#123;</span><br><span class="line">            $sql = $event-&gt;sql;</span><br><span class="line">            if (! Arr::isAssoc($event-&gt;bindings)) &#123;</span><br><span class="line">                foreach ($event-&gt;bindings as $key =&gt; $value) &#123;</span><br><span class="line">                    $sql = Str::replaceFirst(&#x27;?&#x27;, &quot;&#x27;&#123;$value&#125;&#x27;&quot;, $sql);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $headers= Context::get(ServerRequestInterface::class)-&gt;getHeaders();</span><br><span class="line"></span><br><span class="line">            if (isset($headers[&#x27;request_id&#x27;]) &amp;&amp; isset($headers[&#x27;request_id&#x27;][0])) &#123;</span><br><span class="line">                Context::set(&#x27;request_id&#x27;, $headers[&#x27;request_id&#x27;][0]);</span><br><span class="line">                $this-&gt;logger-&gt;info($sql);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>从header中取出request_id，然后set进context中，可以保证sql对应的request_id和普通日志的request_id一致。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>马马虎虎，可以实现功能，日志就此结束，基本功能已经实现，出现的坑也已经基本踏平。可以研究日志告警机制。</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/08/13/composer创建library包/" data-toggle="tooltip" data-placement="top" title="composer创建library包">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/epimetheusQ">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; epimetheusQ 2021 
+                    <br>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a target="_blank" rel="noopener" href="http://omnimate.cn">epimetheusQ</a> |
+<!--                    <iframe-->
+<!--                        style="margin-left: 2px; margin-bottom:-5px;"-->
+<!--                        frameborder="0" scrolling="0" width="91px" height="20px"-->
+<!--                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >-->
+<!--                    </iframe>-->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://example.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://example.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
