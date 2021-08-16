@@ -13,11 +13,11 @@
 
     <title>
         
-          epimetheus的博客 | epimetheusQ&#39;s Blog
+          isset、empty、is_null用法 - epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/tags/hexo/">
+    <link rel="canonical" href="http://example.com/2021/08/16/isset、empty、is-null用法/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -150,7 +150,187 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>isset、empty、is_null用法</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by epimetheusQ on
+                        2021-08-16
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="isset-一般用来检测变量是否设置"><a href="#isset-一般用来检测变量是否设置" class="headerlink" title="isset 一般用来检测变量是否设置"></a>isset 一般用来检测变量是否设置</h3><p>isset($a); 若$a 没有定义（var_dump时会报notice），返回false，或者 变量中的某个key没有set<br>isset(null)； 返回 false</p>
+<p>若变量不存在，如:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$a[&#x27;c&#x27;] = <span class="number">1</span>;</span><br><span class="line">isset($a[&#x27;b&#x27;]); <span class="comment">// 返回false</span></span><br><span class="line"><span class="comment">// ----------------        </span></span><br><span class="line">$a = <span class="literal">null</span>;</span><br><span class="line">isset($a); <span class="comment">// 返回false</span></span><br><span class="line"><span class="comment">// ------------------        </span></span><br><span class="line">$a;</span><br><span class="line">isset($a); <span class="comment">// 返回 false</span></span><br></pre></td></tr></table></figure>
+
+<p>其他返回true</p>
+<h3 id="empty-判断值是否为空或者是否为0"><a href="#empty-判断值是否为空或者是否为0" class="headerlink" title="empty 判断值是否为空或者是否为0"></a>empty 判断值是否为空或者是否为0</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$a;</span><br><span class="line">var_dump(empty($a));  <span class="comment">// 返回true，因为$a不是一个属性，没有实际的值，等同于 null</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>“”、0、”0”、NULL、、FALSE、array()、var $var;  返回true，只要一切不存在的，都返回true<br>一切有值，有意义的返回false</p>
+<blockquote>
+<p>类似于  ! $val;</p>
+</blockquote>
+<p><em><strong>注意： 若 $a = ‘0’,此时0为字符串，也是true，因为是检测为空，或者为0</strong></em></p>
+<h3 id="is-null-判断是否为null"><a href="#is-null-判断是否为null" class="headerlink" title="is_null 判断是否为null"></a>is_null 判断是否为null</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$a;  或者 $a = <span class="literal">null</span>;</span><br><span class="line">var_dump(is_null($a)); <span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure>
+
+<p>表格：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>empty</th>
+<th>is_null</th>
+<th>isset</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$a=””</td>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>$a=null</td>
+<td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>var $a</td>
+<td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>$a=array()</td>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>$a=false</td>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>$a=15</td>
+<td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>$a=1</td>
+<td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>$a=0</td>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>$a=”0”</td>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>$a=”true”</td>
+<td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>$a=”false”</td>
+<td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody></table>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/08/16/LNMP路径/" data-toggle="tooltip" data-placement="top" title="LNMP路径">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
 
     <!-- Footer -->
     <!-- Footer -->
