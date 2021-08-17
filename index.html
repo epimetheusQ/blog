@@ -196,7 +196,7 @@
         </h3>
         <div class="post-content-preview">
             sql分组，获取某个字段的最后一个值，或者第一个值，或者其中某个值查找订单下，最后一个批次。
-12345678910SELECT     order_sn,    SUBSTRING_INDEX(GROUP_CONCAT(`batch_sn` ORDER BY `id` DESC SEPARATOR &#x27;|&#x27;), &#x27;|&#x27;, 1) AS batch_snF......
+12345678910111213SELECT     order_sn,    SUBSTRING_INDEX(GROUP_CONCAT(`batch_sn` ORDER BY `id` DESC SEPARATOR &#x27;|&#x27;), &#x27;|&#x27;, 1) AS bat......
         </div>
     </a>
     <p class="post-meta">
