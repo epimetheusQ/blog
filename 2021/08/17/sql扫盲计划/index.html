@@ -197,13 +197,17 @@
                 <h3 id="sql分组，获取某个字段的最后一个值，或者第一个值，或者其中某个值"><a href="#sql分组，获取某个字段的最后一个值，或者第一个值，或者其中某个值" class="headerlink" title="sql分组，获取某个字段的最后一个值，或者第一个值，或者其中某个值"></a>sql分组，获取某个字段的最后一个值，或者第一个值，或者其中某个值</h3><p>查找订单下，最后一个批次。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SELECT </span><br><span class="line">    order_sn,</span><br><span class="line">    SUBSTRING_INDEX(GROUP_CONCAT(`batch_sn` ORDER BY `id` DESC SEPARATOR &#x27;|&#x27;), &#x27;|&#x27;, 1) AS batch_sn</span><br><span class="line">FROM pms_order_goods_batch</span><br><span class="line">GROUP BY order_sn;</span><br><span class="line"></span><br><span class="line">GROUP_CONCAT 通常和group by 一起用，代表 order_sn内的全部batch_sn数据， 同时可以根据某个字段进行排序， 原生是逗号分割，如果使用 SEPARATOR 进行分割，那么就是使用 &#x27;|&#x27;进行分割</span><br><span class="line"></span><br><span class="line">SUBSTRING_INDEX(&#x27;需要分割的值&#x27;, &#x27;分割介质&#x27;, 第几个数据) AS batch_sn 别名</span><br><span class="line"></span><br><span class="line">// 也可以batch_sn进行去重</span><br><span class="line">GROUP_CONCAT(DISTINCT(`batch_sn`)) AS batch_sn</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h3 id="待续-…"><a href="#待续-…" class="headerlink" title="待续 …"></a>待续 …</h3>
+<h3 id="sql-随机取出10条数据"><a href="#sql-随机取出10条数据" class="headerlink" title="sql 随机取出10条数据"></a>sql 随机取出10条数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user order by RAND() LIMIT 10;</span><br><span class="line"> </span><br><span class="line"> // rand()  函数用于取随机数据</span><br></pre></td></tr></table></figure>
 
                 <hr>
 
                 
 
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2021/08/20/php脚本加速/" data-toggle="tooltip" data-placement="top" title="php脚本加速">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
