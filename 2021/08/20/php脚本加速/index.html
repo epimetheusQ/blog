@@ -195,6 +195,19 @@
                 post-container">
 
                 <p>我们在执行php脚本时，如果存在上百万甚至上千万数据，单线程执行肯定时间很长，所以需要通过其他一些额外手段来进行为脚本加加速。</p>
+<p>当我们使用php原生的脚本进行跑数据时，如果只开单个脚本，也就是一条线程，那么一百万条数据就需要执行100W次，如果我们通过某些参数进行加速，那么开10条线，就每一条脚本只需要耗费1/10的时间。</p>
+<p>php原生包含两个参数，<code>$argv</code> 和 <code>$argc</code>.创建一个a.php查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">print_r($argv);</span><br><span class="line">print_r($argc);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当我们执行脚本 php a.php 1 2 时，</p>
+<p>第一个打印结果是一个数组包含两个参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    [0] =&gt; 1,</span><br><span class="line">    [1] =&gt; 2</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>$argc数量为：2</p>
+<p>通过这种方式，我们可以在制定脚本时，将100w数据，划分10分，并行执行10次。如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">php a.php 0</span><br><span class="line">php a.php 100000</span><br><span class="line">php a.php 200000</span><br><span class="line">php a.php 300000</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+
+<p>系统内部使用sql，进行分割，确保执行没问题。</p>
 
 
                 <hr>
