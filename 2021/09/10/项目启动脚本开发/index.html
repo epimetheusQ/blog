@@ -13,11 +13,11 @@
 
     <title>
         
-          epimetheus的博客 | epimetheusQ&#39;s Blog
+          项目启动脚本开发 - epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/tags/MYSQL/">
+    <link rel="canonical" href="http://example.com/2021/09/10/项目启动脚本开发/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -150,7 +150,104 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#SHELL" title="SHELL">SHELL</a>
+                        
+                    </div>
+                    <h1>项目启动脚本开发</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by epimetheusQ on
+                        2021-09-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">! /bin/bash</span></span><br><span class="line">CODE_DIR=/home/wwwroot/ai_gmall_server</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新代码</span></span><br><span class="line">cd $CODE_DIR</span><br><span class="line">git checkout .</span><br><span class="line">git pull origin</span><br><span class="line"></span><br><span class="line">composer install --optimize-autoloader</span><br><span class="line">\cp envs/qa/.env .env</span><br><span class="line"></span><br><span class="line">php artisan config:clear</span><br><span class="line">php artisan view:clear</span><br><span class="line"></span><br><span class="line">/etc/init.d/php-fpm reload</span><br><span class="line">php artisan horizon:terminate</span><br></pre></td></tr></table></figure>
+
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2021/09/10/信号/" data-toggle="tooltip" data-placement="top" title="信号">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/08/24/nginx快捷命令/" data-toggle="tooltip" data-placement="top" title="nginx快捷命令">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
 
     <!-- Footer -->
     <!-- Footer -->

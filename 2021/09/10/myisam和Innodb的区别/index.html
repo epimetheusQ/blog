@@ -13,11 +13,11 @@
 
     <title>
         
-          epimetheus的博客 | epimetheusQ&#39;s Blog
+          myisam和Innodb的区别 - epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/tags/MYSQL/">
+    <link rel="canonical" href="http://example.com/2021/09/10/myisam和Innodb的区别/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -150,7 +150,125 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#MYSQL" title="MYSQL">MYSQL</a>
+                        
+                    </div>
+                    <h1>myisam和Innodb的区别</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by epimetheusQ on
+                        2021-09-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>MyISAM只支持表级锁<br>InnoDB支持事务和行级锁</p>
+<p>MyISAM会保存表的总行数。Innodb不会保存表的总行数。如果使用sql count取值，innodb会遍历整个表。<br>当加入where条件是两种类型处理模式一致。</p>
+<p>MyISAM支持全文索引，Innodb不支持。</p>
+<p>什么是事务？<br>1.原子性：一个事务中的所有操作，要么全部完成，要么全部不完成，不会结束在中间的某个环节。事务在执行中发生错误，会被回滚到事务之前的状态，就像这个事务从来没有执行过一样。<br>2.一致性：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度，串联性以及以后数据库可以自发性得完成预定工作。<br>3.隔离性：数据库允许多个并发事务同时对其数据进行读写和修改能力。隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。<br>4.持久性：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</p>
+<h2 id="行级锁和表级锁"><a href="#行级锁和表级锁" class="headerlink" title="行级锁和表级锁"></a>行级锁和表级锁</h2><h3 id="什么是行级锁？"><a href="#什么是行级锁？" class="headerlink" title="什么是行级锁？"></a>什么是行级锁？</h3><p>行级锁是Mysql中锁定粒度最细的一种锁，表示只针对当前操作的行进行加锁。行级锁能大大减少数据库操作的冲突。其加锁粒度最小，但是加锁的开销也最大。行级锁分为共享锁和排他锁。</p>
+<p>特点：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度最高。</p>
+<h3 id="什么是表级锁？"><a href="#什么是表级锁？" class="headerlink" title="什么是表级锁？"></a>什么是表级锁？</h3><p>表级锁是Mysql中锁定粒度最大的一种锁，表示对当前操作的整张表加锁，它实现简单，资源消耗较少，被mysql大部分引擎支持，最常用的MYISAM与INNODB都支持表级锁定。表级锁定分为”表共享读锁（共享锁）“ 与”表独占写锁（排他锁）“。</p>
+<p>特点：开销小，加锁快；不会出现死锁；锁定粒度大，发出锁冲突概率最高，并发度最低。</p>
+<h3 id="什么是页级锁？"><a href="#什么是页级锁？" class="headerlink" title="什么是页级锁？"></a>什么是页级锁？</h3><p>页级锁是Mysql中锁定粒度介于行级锁和表级锁中间的一种锁。表级锁速度快，但是冲突多，行级锁冲突少，但是速度慢。所以取了折中的页级，一次锁定相邻的一组记录。</p>
+<p>特点：开销和加锁时间介于表锁和行锁之间，会出现死锁的状况；锁定粒度介于表锁和行锁之间，并发一般。</p>
+<h3 id="Mysql常用存储引擎和锁机制"><a href="#Mysql常用存储引擎和锁机制" class="headerlink" title="Mysql常用存储引擎和锁机制"></a>Mysql常用存储引擎和锁机制</h3><p>MyISAM和MEMORY采用表级锁（table-level locking）<br>BDB采用页级锁（Page-level locking）或表级锁，默认页级锁<br>InnoDB支持行级锁（row-level locking）和表级锁，默认为行级锁</p>
+<h3 id="InnoDB中的行锁和表锁"><a href="#InnoDB中的行锁和表锁" class="headerlink" title="InnoDB中的行锁和表锁"></a>InnoDB中的行锁和表锁</h3><p>什么时候会锁住整张表？什么时候或只锁住一行呢？</p>
+<p>InnoDB行锁是通过给索引上的索引项加锁来实现的，这种行锁实现特点意味着：只有通过索引条件检索数据，InnoDB才使用行级锁，否则InnoDB将使用表锁！</p>
+<pre><code>在实际的应用中，要特别注意Innodb行锁的特性，不然会导致大量的锁冲突，从而影响并发性能。
+</code></pre>
+<p>行锁都是基于索引的，如果一条SQL语句用不到索引是不会使用行级锁的，会使用表级锁。行级锁的特点是：由于需要请求大量的锁资源，所以速度慢，内存消耗大。</p>
+<h3 id="行级锁和死锁"><a href="#行级锁和死锁" class="headerlink" title="行级锁和死锁"></a>行级锁和死锁</h3><p>MyISAM中不会产生死锁，因为MyISAM总是一次性获取所需的全部锁，要么全部满足，要么全部等待。而在InnoDB中，锁是逐步获得的，就造就了死锁的可能。</p>
+<p>在Mysql中，行级锁并不是直接锁记录，而是锁索引。索引部分分为主键索引和非主键索引。如果一条SQL语句操作了主键索引，Mysql就会锁定这条主键索引；如果一条语句操作了非主键索引，Mysql会先锁定该非主键索引，在锁定相关的主键索引。在update、delete操作时，Mysql不仅锁定where条件扫描的所有索引记录，而且会锁定相邻的键值。</p>
+<blockquote>
+<p>什么情况下发生死锁？<br /><br>当两个事务同时执行，一个锁住了主键索引，在等待其他相关索引，另一个锁定了非主键索引，在等待主键索引。这样就发生了死锁。</p>
+</blockquote>
+<p>发生死锁，Innodb一般都可以检测到，并使得一个事务释放锁回退，另一个获取锁完成事务。</p>
+<h3 id="如何避免死锁"><a href="#如何避免死锁" class="headerlink" title="如何避免死锁"></a>如何避免死锁</h3><p>尽量使用同一事务，尽可能做到一次锁定所需要的所有资源，减少死锁的产生概率。<br /><br>对于经常产生死锁的业务部分，可以尝试使用升级锁定颗粒度，通过表级锁定来减少死锁产生的概率。 <br /><br>如果多个程序会并发存取多个表，尽量约定以相同的顺序访问表，可以大大降低死锁的机会。</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2021/09/10/kafka命令/" data-toggle="tooltip" data-placement="top" title="kafka命令">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/09/10/信号/" data-toggle="tooltip" data-placement="top" title="信号">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
 
     <!-- Footer -->
     <!-- Footer -->

@@ -13,11 +13,11 @@
 
     <title>
         
-          epimetheus的博客 | epimetheusQ&#39;s Blog
+          网站安全之xss、csrf、sql注入 - epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/tags/MYSQL/">
+    <link rel="canonical" href="http://example.com/2021/09/10/网站安全之xss、csrf、sql注入/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -150,7 +150,123 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#PHP" title="PHP">PHP</a>
+                        
+                    </div>
+                    <h1>网站安全之xss、csrf、sql注入</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by epimetheusQ on
+                        2021-09-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="SQL注入、XSS、CSRF"><a href="#SQL注入、XSS、CSRF" class="headerlink" title="SQL注入、XSS、CSRF"></a>SQL注入、XSS、CSRF</h1><h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>跨站脚本攻击（cross Site Scripting），恶意攻击者往web页面里插入恶意的Script代码，当用户浏览该页面之时，嵌入其中web里面的script代码会被执行，从而达到恶意攻击用户的目的。</p>
+<p>XSS主要有如下三种分类：</p>
+<p>1.Reflected XSS（基于反射的XSS攻击）：是指XSS代码在请求的url中，而后提交到服务器，服务器解析后，xss代码随着响应内容一起传给客户端进行解析执行（直接反射显示在页面）。<br>2.Stored XSS（基于存储的xss攻击）：Stored XSS 和 Reflected XSS的差别就在于，具有攻击性的脚本被保存到了服务器端（数据库、内存、文件系统）并且可以被普通用户完整的从服务取得并执行，从而获得了在网络上传播的能力。<br>3.DOM-based or local XSS（基于DOM或本地的XSS攻击：DOM型XSS其实是一种特殊类型的反射型XSS，它是基于DOM文档对象模型的一种漏洞。可以通过DOM来动态修改页面内容，从客户端获取DOM中的数据并在本地执行。基于这个特性，就可以利用JS脚本来实现XSS漏洞的利用。</p>
+<p>举个xss例子：</p>
+<p>（1）在网页input或者textarea中输入<script>alert(111)<script>或其他脚本。<br>（2）直接使用url参数攻击：<a target="_blank" rel="noopener" href="https://www.baidu.com/?jarttoTest=">https://www.baidu.com?jarttoTest=</a><script>alert(document.cookie)</script></p>
+<p>XSS不光可以在后端进行防御，也可以在前端进行防御。</p>
+<p>可以使用 php函数 htmlspecialchars()进行将脚本符号实体化。</p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>跨站请求伪造（csrf) Cross-site request forgery，和XSS有些相似，都是属于跨站攻击-不攻击服务器端而攻击正常访问网站的用户，但它们的攻击类型是不同维度上的分类。CSRF顾名思义，是伪造请求，冒充用户在站内的正常操作。我们知道，绝大多数网站是通过cookie等方式辨别用户身份（包括使用服务端Session的网站，因为Session ID 也是大多保存在cookie里面的），在予以授权的。所以要伪造用户的正常操作，最好的方法是通过XSS或链接欺骗等途径，让用户在本机（即拥有身份的cookie的浏览器端）起用户所不知道的请求。</p>
+<p>举个csrf例子：</p>
+<p>银行A，它以GET请求来完成银行转账操作：</p>
+<pre><code>http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000
+</code></pre>
+<p>危险网站B，它里面有一段html代码如下：</p>
+<pre><code>&lt;img src=http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000&gt;
+</code></pre>
+<p>首先，你登录了银行网站 A ，然后访问危险网站 B ，噢，这时你会发现你的银行账户少了 1000 块…</p>
+<h3 id="CSRF漏洞如何防御？"><a href="#CSRF漏洞如何防御？" class="headerlink" title="CSRF漏洞如何防御？"></a>CSRF漏洞如何防御？</h3><p>1.验证HTTP Referer 字段，利用http头中的referer判断请求来源是否合法，referer记录了该http请求的来源地址。</p>
+<p>简单易行，只需要在最后给所有安全敏感的请求统一增加一个拦截器来检查Referer的值就可以。特别是对于当前现有的系统，不需要改变当前系统的任何已有代码和逻辑，没有风险，非常便捷。但是有一个缺陷，低版本浏览器提供的Referer存在伪造的风险。</p>
+<p>2.在请求地址中添加token并验证</p>
+<p>CSRF之所以可以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户信息都存在与cookie中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的cookie来通过安全验证。我们可以设置一个token，然后在服务端先验证token，如果请求中没有token或者token内容不正确，则认为可能是CSRF攻击而拒绝该请求。</p>
+<h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>表单输入不合法的mysql语句，达到破解如密码这种操作，可以利用占位符进行防止这种信息。</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2021/09/10/php-fastcgi/" data-toggle="tooltip" data-placement="top" title="php fastcgi">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/09/10/缓存雪崩，穿透理解/" data-toggle="tooltip" data-placement="top" title="缓存雪崩，穿透理解">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
 
     <!-- Footer -->
     <!-- Footer -->

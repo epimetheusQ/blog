@@ -17,7 +17,7 @@
         
     </title>
 
-    <link rel="canonical" href="http://example.com/tags/MYSQL/">
+    <link rel="canonical" href="http://example.com/page/2/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -150,7 +150,280 @@
 
 
     <!-- Main Content -->
-    <!-- Default Archive layout, we use archives instead. -->
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>epimetheusQ</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">上帝如风，无所不触</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <!-- Main Content -->
+
+
+<div class="post-preview">
+
+    <a href="/2021/08/17/sql扫盲计划/">
+        <h2 class="post-title">
+            sql扫盲计划
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            sql分组，获取某个字段的最后一个值，或者第一个值，或者其中某个值查找订单下，最后一个批次。
+12345678910111213SELECT     order_sn,    SUBSTRING_INDEX(GROUP_CONCAT(`batch_sn` ORDER BY `id` DESC SEPARATOR &#x27;|&#x27;), &#x27;|&#x27;, 1) AS bat......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-08-17
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/08/16/isset、empty、is-null用法/">
+        <h2 class="post-title">
+            isset、empty、is_null用法
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            isset 一般用来检测变量是否设置isset($a); 若$a 没有定义（var_dump时会报notice），返回false，或者 变量中的某个key没有setisset(null)； 返回 false
+若变量不存在，如:
+12345678$a[&#x27;c&#x27;] = 1;isset($a[&#x27;b&#x27;]); // 返回false// --------------......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-08-16
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/08/16/LNMP路径/">
+        <h2 class="post-title">
+            LNMP路径
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            查看 brew 安装列表1brew list
+
+123brew services start php@7.3 //利用 brew 启动 phpbrew services restart php@7.3 // 利用brew 重启 phpbrew services stop php@7.3 // 利用brew 关闭 php
+nginx1234sudo nginxsudo nginx -s rel......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-08-16
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/08/16/开发代码禁区/">
+        <h2 class="post-title">
+            开发代码禁区
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            禁止使用如 request、di、html等关键字作为命名规则翻车，monolog使用request作为config组名，框架启动时一直报错，一直报错。内存溢出，找不到原因，结果换个组名就完美解决了。
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-08-16
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/08/14/日志增加request-id/">
+        <h2 class="post-title">
+            日志增加request_id
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            日志增加request_id
+日志增加request_id，可以通过关键字查看整个日志的链路信息，提升bug查找速度，以及外部对接进度。
+
+hyperf和传统的框架不同，传统框架可以通过request，在框架初始化时增加request_id，实现整个进程日志记录同一个request_id，但是hyperf是协程的方式运作的，当我们使用协程时，request_id会因为协程的使用而导致requ......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-08-14
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/08/13/composer创建library包/">
+        <h2 class="post-title">
+            composer创建library包
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            注意事项
+参考demo的例子：https://github.com/epimetheusQ/omnimate.git
+git 强制推送   git push -u origin master -f （强制推送，慎用）
+在composer init时，如果创建一个项目，写project，如果想写一个类似于hyperf/validation的话，就需要选择library，其余暂未研究过。
+即使你......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-08-13
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/08/13/hexo的基本使用方式/">
+        <h2 class="post-title">
+            hexo的基本使用方式
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Qu......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-08-13
+    </p>
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+        <li class="previous">
+            <a href="/">&larr; Newer Posts</a>
+        </li>
+    
+    
+</ul>
+
+
+
+                <!-- 如果开启评论功能 -->
+                
+
+            </div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+
+                        
+                            <img src="/img/avatar.jpg" />
+                        
+
+                        
+                            <p>懒惰的黑铁PHP开发工程师</p>
+                        
+
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                            
+
+                            
+
+                            
+
+                            
+                                <li>
+                                    <a target="_blank"  href="https://github.com/epimetheusQ">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            
+                            
+                            
+                            
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- Friends Blog -->
+                
+            </div>
+        
+    </div>
+</div>
+
 
     <!-- Footer -->
     <!-- Footer -->

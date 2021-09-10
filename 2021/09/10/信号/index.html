@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          信号 - epimetheus的博客 | epimetheusQ&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://example.com/2021/09/10/信号/">
+
+    <!-- Bootstrap Core CSS -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/hux-blog.min.css">
+
+
+    <!-- Pygments Highlight CSS -->
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">epimetheusQ</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#PHP" title="PHP">PHP</a>
+                        
+                    </div>
+                    <h1>信号</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by epimetheusQ on
+                        2021-09-10
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h1><h2 id="关于php的declare语句中的tick的解释"><a href="#关于php的declare语句中的tick的解释" class="headerlink" title="关于php的declare语句中的tick的解释"></a>关于php的declare语句中的tick的解释</h2><h4 id="什么是declare"><a href="#什么是declare" class="headerlink" title="什么是declare"></a>什么是declare</h4><p>declare是php的流程控制结构，directive目前支持两个指令（ticks和encoding），ticks的使用配合register_tick_function()（当然还有unregister_tick_function()）使用。declare结构用来设定一段代码的执行指令。declare的语法和其它流程控制结构相似：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declare(directive)</span><br><span class="line">statement</span><br></pre></td></tr></table></figure>
+
+<p>declare：<code>声明，宣布</code><br>directive：<code>指示，指令</code><br>statement：<code>声明，陈述</code></p>
+<p>tick是在一个declare代码段中解释器每执行N条低级语句就会发生的事件。N的值是在declare中的directive部分用tick=N来指定。</p>
+<p>在每个tick中出现的事件是由register_tick_function()来指定的。</p>
+<p>通俗解释一下：</p>
+<pre><code>ticks参数标识运行多少语句调用一次register_tick_function()。
+register_tick_function函数定义了每个tick事件发生时的处理函数。那么什么是tick事件？
+tick是一个事件，tick时间在php每执行N条低级语句就发生一次，N由declare语句指定。
+可以用register_tick_function()来指定tick事件发生时应该执行的操作。
+</code></pre>
+<h4 id="什么是低级语句"><a href="#什么是低级语句" class="headerlink" title="什么是低级语句"></a>什么是低级语句</h4><pre><code>1.简单语句：空语句（就一个；号），return,break,continue,throw, goto,global,static,unset,echo, 内置的HTML文本，分号结束的表达式等均算一个语句。
+2.复合语句：完整的if/elseif,while,do...while,for,foreach,switch,try...catch等算一个语句。
+3.语句块：&#123;&#125; 括出来的语句块。
+4.最后特别的：declare块本身也算一个语句(按道理declare块也算是复合语句，但此处特意将其独立出来)。
+</code></pre>
+<h4 id="declare用法"><a href="#declare用法" class="headerlink" title="declare用法"></a>declare用法</h4><p>看一个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function doticks ()&#123;</span><br><span class="line">    echo &#x27;ticks&#x27;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">register_tick_function(&#x27;doticks&#x27;);</span><br><span class="line"></span><br><span class="line">declare(ticks = 1) &#123;</span><br><span class="line">    for ($x = 1; $x &lt; 10; $x++) &#123;</span><br><span class="line">        echo  $x * $x . &#x27;&lt;br /&gt;&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">ticksticks4</span><br><span class="line">ticksticks9</span><br><span class="line">ticksticks16</span><br><span class="line">ticksticks25</span><br><span class="line">ticksticks36</span><br><span class="line">ticksticks49</span><br><span class="line">ticksticks64</span><br><span class="line">ticksticks81</span><br><span class="line">ticksticksticksticks</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<pre><code>首先完整的for循环算一个语句，但必须要等循环结束才算，因此在编译时for循环里面的echo 算第一个语句。
+所以第一个doticks是在第一个echo后执行的，也就是1输出后才发生第一个tick事件。
+在$x 从1到9的循环中，每个循环包括两个语句，一个echo, 一个for循环。在81输出后，因为echo是一条语句，因此输出第一个ticks。
+同时$x=9的这个for循环也结束了。
+</code></pre>
+<p>这是只是到ticksticksticks81这里！那最后一行连续输出4个ticks是怎么实现的呢？</p>
+<pre><code>1.81输出后，因为本身是echo语句，所以算一个低级语句，输出一个ticks。
+2.81输出后，本次循环完成，算一个低级语句，输出一个ticks。
+3.当$x=10时，不满足循环条件，该for循环结束，输出一个ticks。
+4.declare之前强调的，本身就属于一个低级语句，输出一个ticks。
+</code></pre>
+<h2 id="php-PCNTL函数"><a href="#php-PCNTL函数" class="headerlink" title="php PCNTL函数"></a>php PCNTL函数</h2><p>了解了ticks机制，我们演示一下pcntl函数</p>
+<h4 id="pcntl函数简介"><a href="#pcntl函数简介" class="headerlink" title="pcntl函数简介"></a>pcntl函数简介</h4><p>PHP的进程控制支持实现了Unix方式的进程创建，程序执行，信号处理以及进程的中断。进程控制不能被应用在Web服务器环境，当其被用于Web环境时可能会带来意外的结果。</p>
+<p>PCNTL现在使用ticks作为信号处理的回调机制，ticks在速度上远远超过了之前的处理机制。这个变化与“用户ticks”遵循了相同的语义。您可以使用declare()语句在程序中指定允许发生回调的位置。这使得我们对异步事件处理的开销最小化。在编译PHP时，启用pcntl将始终承担这种开销，无论您的脚本中是否真正使用了pcntl。</p>
+<h4 id="信号常量介绍"><a href="#信号常量介绍" class="headerlink" title="信号常量介绍"></a>信号常量介绍</h4><pre><code>SIGHUP = 1
+SIGINT = 2
+SIGQUIT = 3
+SIGILL = 4
+SIGTRAP = 5
+SIGABRT = 6
+SIGIOT = 6
+SIGBUS = 10
+SIGFPE = 8
+SIGUSR1 = 30
+SIGSEGV = 11
+SIGUSR2 = 31
+SIGPIPE = 13
+SIGALRM = 14
+SIGTERM = 15
+SIGSTKFLT not defined 
+SIGCLD not defined 
+SIGCHLD = 20
+SIGCONT = 19
+SIGTSTP = 18
+SIGTTIN = 21
+SIGTTOU = 22
+SIGURG = 16
+SIGXCPU = 24
+SIGXFSZ = 25
+SIGVTALRM = 26
+SIGPROF = 27
+SIGWINCH = 28
+SIGPOLL not defined 
+SIGIO = 23
+SIGPWR not defined 
+SIGSYS = 12
+SIGBABY = 12
+SIG_BLOCK = 1
+SIG_UNBLOCK = 2
+SIG_SETMASK = 3
+SIGHUP     终止进程     终端线路挂断
+SIGINT     终止进程     中断进程
+SIGQUIT   建立CORE文件终止进程，并且生成core文件
+SIGILL   建立CORE文件       非法指令
+SIGTRAP   建立CORE文件       跟踪自陷
+SIGBUS   建立CORE文件       总线错误
+SIGSEGV   建立CORE文件       段非法错误
+SIGFPE   建立CORE文件       浮点异常
+SIGIOT   建立CORE文件       执行I/O自陷
+SIGKILL   终止进程     杀死进程
+SIGPIPE   终止进程     向一个没有读进程的管道写数据
+SIGALARM   终止进程     计时器到时
+SIGTERM   终止进程     软件终止信号
+SIGSTOP   停止进程     非终端来的停止信号
+SIGTSTP   停止进程     终端来的停止信号
+SIGCONT   忽略信号     继续执行一个停止的进程
+SIGURG   忽略信号     I/O紧急信号
+SIGIO     忽略信号     描述符上可以进行I/O
+SIGCHLD   忽略信号     当子进程停止或退出时通知父进程
+SIGTTOU   停止进程     后台进程写终端
+SIGTTIN   停止进程     后台进程读终端
+SIGXGPU   终止进程     CPU时限超时
+SIGXFSZ   终止进程     文件长度过长
+SIGWINCH   忽略信号     窗口大小发生变化
+SIGPROF   终止进程     统计分布图用计时器到时
+SIGUSR1   终止进程     用户定义信号1
+SIGUSR2   终止进程     用户定义信号2
+SIGVTALRM 终止进程     虚拟计时器到时
+</code></pre>
+<h4 id="pcntl函数"><a href="#pcntl函数" class="headerlink" title="pcntl函数"></a>pcntl函数</h4><p>pcntl_signal($signo, $handler); 为signo指定的信号安装一个新的信号处理器。</p>
+<p><code>signo 信号编号，在php中为给定的常量，可以使用 handler 信号处理器可以是用户创建的函数方法或者名字，也可以是系统常量 SIG_IGN（忽略信号处理程序）或SIG_DFL（默认信号处理程序）。</code></p>
+<p>posix_kill($pid, $signo); 在代码中向指定程序发送信号。</p>
+<p><code>$pid 是进程的pid号码，$signo代表要对该进程执行的操作，也就是信号常量</code></p>
+<p>pcntl_async_signals($bools);查看或者开启/关闭异步信号处理。</p>
+<p><code>$bools就是可以添加bool值，用于启动无需ticks（这会带来很多额外开销的异步信号处理），开启/关闭异步信号处理或者返回当前的设定，如果不传参数pcntl_async_signals()返回当前是否开启了异步信号处理，如果传参数就是设置是否开启异步信号处理。使用该信号可以不需要再把代码放在ticks里</code></p>
+<p>pcntl_sigprocmask($how, $set, $oldset);增加或解除信号屏蔽。</p>
+<p><code>$how有三个值：SIG_BLOCK把信号加入到当前阻塞信号中。SIG_UNBLOCK从当前阻塞信号中移出信号。SIG_SETMASK用给定的信号列表替换当前阻塞信号列表， $set为信号列表， $oldset为一个输出参数，用来返回之前的阻塞信号列表数组</code></p>
+<p>pcntl_alarm()<br><code>为进程设置一个alarm闹钟信号</code></p>
+<p>pcntl_errno()<br><code>设置别名</code></p>
+<p>pcntl_exec()<br><code>在当前进程空间执行指定程序</code></p>
+<p>pcntl_fork()<br><code>在当前进程当前位置产生分支（子进程）。</code></p>
+<p>pcntl_getpriority()<br><code>获取任意进程的优先级</code></p>
+<p>pcntl_setpriority()<br><code>修改任意进程的优先级</code></p>
+<p>pcntl_signal_dispatch()<br><code>调用等待信号的处理器</code></p>
+<p>pcntl_sigprocmask()<br><code>设置或者检索阻碍信号</code></p>
+<p>pcntl_sigtimedwait()<br><code>带超时机制的信号等待</code></p>
+<p>pcntl_sigwaitinfo()<br><code>等待信号</code></p>
+<p>pcntl_wait()<br>pcntl_waitpid()<br><code>等待或返回fork的子进程状态</code></p>
+<p>pcntl_wexitstatus()<br><code>返回一个中断的子进程的返回码</code></p>
+<p>pcntl_wifexited()<br><code>检查状态码是否代表一个正常的退出</code></p>
+<p>pcntl_wifsignaled()<br><code>检查子进程状态码是否代表由于某个信号而中断</code></p>
+<p>pcntl_wifstopped()<br><code>检查子进程当前是否已经停止</code></p>
+<p>pcntl_wstopsig()<br><code>返回导致子进程停止的信号</code></p>
+<p>pcntl_wtermsig()<br><code>返回导致子进程中断的信号</code></p>
+<p>pcntl_strerror()<br><code>检索与抛出errno关联的系统错误消息</code></p>
+<p>pcntl_signal_get_handler()<br><code>获取指定信号的当前处理程序</code></p>
+<p>pcntl_get_last_error()<br><code>返回最后一个错误异常</code></p>
+<h4 id="pcntl函数用法"><a href="#pcntl函数用法" class="headerlink" title="pcntl函数用法"></a>pcntl函数用法</h4><h5 id="pcntl-signal"><a href="#pcntl-signal" class="headerlink" title="pcntl_signal()"></a>pcntl_signal()</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">pcntl_signal(SIGINT, function () &#123;</span><br><span class="line">    echo &quot;捕获到了 SIGINT 信号&quot; . PHP_EOL;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">declare(ticks = 1)</span><br><span class="line">&#123;</span><br><span class="line">    $a = 0;</span><br><span class="line">    while(1) &#123;</span><br><span class="line">        $a++;</span><br><span class="line">        echo $a . PHP_EOL;</span><br><span class="line">        sleep(1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>代码会一直打印$a的值，当我们按下Ctrl + c时，就给程序发送了一个SIGINT信号，但是由于我们自定义了信号处理，所以这时候不会结束进程，而是继续打印一个字符串。</p>
+<p>打印结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">^C捕捉到了SIGINT信号</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">^\[1]    798 quit       php declare.php</span><br></pre></td></tr></table></figure>
+
+<p>其中，最后一行是我按下Ctrl + \ ，也就是发送信号 SIGQUIT 来结束程序。</p>
+<h5 id="posix-kill"><a href="#posix-kill" class="headerlink" title="posix_kill()"></a>posix_kill()</h5><p>我们尝试使用一下posix_kill()</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">// 若捕捉到前端按键 ctrl + c ，则在终端打印echo 文字，并且对当前进程执行关闭操作。</span><br><span class="line">pcntl_signal(SIGINT, function () &#123;</span><br><span class="line">    echo &quot;捕获到SIGINT 信号 \n&quot;;</span><br><span class="line">    posix_kill(posix_getpid(), SIGQUIT);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">pcntl_signal(SIGQUIT, function () &#123;</span><br><span class="line">    echo &quot;catch signal SIGQUIT \n&quot;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">declare(ticks = 1) &#123;</span><br><span class="line">    while(1)&#123;</span><br><span class="line">        sleep(1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面程序意思是，当用户输入ctrl + c 或者 ctrl + \的时候都关闭该进程。运行结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">^C捕获到 SIGINT 信号</span><br><span class="line">catch signal SIGQUIT </span><br></pre></td></tr></table></figure>
+
+<p>linux结束程序，使用命令 kill -9 pid。</p>
+<h5 id="pcntl-async-signals"><a href="#pcntl-async-signals" class="headerlink" title="pcntl_async_signals()"></a>pcntl_async_signals()</h5><p>下面介绍一下php7.1信号新特性 pcntl_async_signals(),写个例子我们可以先看是否开启了异步信号。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">// 查看当前是否开启异步信号</span><br><span class="line">$status = pcntl_async_signals();</span><br><span class="line">var_dump($status);</span><br><span class="line"></span><br><span class="line">// 开启异步信号</span><br><span class="line">pcntl_async_signals(true);</span><br><span class="line"></span><br><span class="line">// 查看当前是否开启异步信号</span><br><span class="line">$status = pcntl_async_signals();</span><br><span class="line">var_dump($status);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以查看一下返回值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bool(false)</span><br><span class="line">bool(true)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过上面这个例子，在写一个简单的应用例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">// 开启异步信号处理</span><br><span class="line">pcntl_async_signals(true);</span><br><span class="line"></span><br><span class="line">pcntl_signal(SIGINT, function () &#123;</span><br><span class="line">    echo &quot;捕获到SIGINT信号&quot; . PHP_EOL;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$i = 0;</span><br><span class="line">while(1)</span><br><span class="line">&#123;</span><br><span class="line">    echo $i++ . PHP_EOL:</span><br><span class="line">    sleep(1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码会不停的打印数字，当键入 ctrl + c向进程发送SIGINT信号是，打印一句话，可以看到不需要把代码放在ticks中了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">^C捕获到SIGINT信号</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">^C捕获到SIGINT信号</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">^C捕获到SIGINT信号</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">^\Quit</span><br></pre></td></tr></table></figure>
+
+<h5 id="pcntl-sigprocmask"><a href="#pcntl-sigprocmask" class="headerlink" title="pcntl_sigprocmask()"></a>pcntl_sigprocmask()</h5><p>我们还可以进行简单的信号屏蔽，利用函数pcntl_sigprocmask()来实现。</p>
+<p>信号中还有一个很重要的概念是信号屏蔽，我们可以对进程设置暂时屏蔽某些信号，进程中有标记那些信号被屏蔽的一个“列表”，称之为信号屏蔽字，这是在向进程发送处于被屏蔽的信号，信号不会立即送达进程，而是被存入称作“信号未决字”的列表中，而这些信号被解除屏蔽时，信号会被立即送达进程。pcntl_sigprocmask方法来增加和解除信号屏蔽。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">// 屏蔽 SIGINT SIGQUIT 信号</span><br><span class="line">pcntl_sigprocmask(SIG_BLOCK, [SIGINT, SIGQUIT], $oldset);</span><br><span class="line">print_r($oldset);</span><br><span class="line"></span><br><span class="line">for($i = 0; $i&lt;=100;$i++) &#123;</span><br><span class="line">    echo &#x27;$i = &#x27; . $i . PHP_EOL;</span><br><span class="line">    sleep(1);</span><br><span class="line">    </span><br><span class="line">    if ($i == 10) &#123;</span><br><span class="line">        pcntl_sigprocmask(SIG_UNBLOCK, [SIGINT], $oldset);</span><br><span class="line">        echo &quot;解除信号屏蔽\n&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>循环到$i=10之前ctrl+c和循环到$i&gt;10打印结果是不一样的，没有执行到10之前终止掉，ctrl+c不会终止程序，但是当$i=10时程序会立刻断掉。执行到$i&gt;10，键入ctrl+c会立刻断掉。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// $i&lt;=10键入 ctrl+c</span><br><span class="line">Array</span><br><span class="line">(</span><br><span class="line">)</span><br><span class="line">$i = 0</span><br><span class="line">$i = 1</span><br><span class="line">$i = 2</span><br><span class="line">$i = 3</span><br><span class="line">$i = 4</span><br><span class="line">$i = 5</span><br><span class="line">^C$i = 6</span><br><span class="line">$i = 7</span><br><span class="line">$i = 8</span><br><span class="line">$i = 9</span><br><span class="line">$i = 10</span><br><span class="line"></span><br><span class="line">// $i&gt;10 键入ctrl+c</span><br><span class="line">Array</span><br><span class="line">(</span><br><span class="line">)</span><br><span class="line">$i = 0</span><br><span class="line">$i = 1</span><br><span class="line">$i = 2</span><br><span class="line">$i = 3</span><br><span class="line">$i = 4</span><br><span class="line">$i = 5</span><br><span class="line">$i = 6</span><br><span class="line">$i = 7</span><br><span class="line">$i = 8</span><br><span class="line">$i = 9</span><br><span class="line">$i = 10</span><br><span class="line">解除信号屏蔽</span><br><span class="line">$i = 11</span><br><span class="line">$i = 12</span><br><span class="line">$i = 13</span><br><span class="line">$i = 14</span><br><span class="line">$i = 15</span><br><span class="line">$i = 16</span><br><span class="line">$i = 17</span><br><span class="line">^C</span><br></pre></td></tr></table></figure>
+
+<p>可以看到一旦解除了信号的屏蔽，信号就会立即送达。如果你希望一段代码执行结束之后再恢复信号，必须这么写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"> </span><br><span class="line">while(1)</span><br><span class="line">&#123;</span><br><span class="line">        pcntl_sigprocmask(SIG_BLOCK, array(SIGINT, SIGQUIT, SIGTERM), $oldset);  //进入循环时 屏蔽信号</span><br><span class="line"> </span><br><span class="line">        /* 假设下面这段代码必需要完整执行 */</span><br><span class="line"> </span><br><span class="line">        echo &quot;----------------------start-----------------------\n&quot;;</span><br><span class="line">        echo &quot;11111111\n&quot;;</span><br><span class="line">        sleep(1);</span><br><span class="line"> </span><br><span class="line">        echo &quot;22222222222\n&quot;;</span><br><span class="line">        sleep(1);</span><br><span class="line"> </span><br><span class="line">        echo &quot;33333333\n&quot;;</span><br><span class="line">        sleep(1);</span><br><span class="line">        echo &quot;-------------------------end-----------------------\n&quot;;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">        pcntl_sigprocmask(SIG_UNBLOCK, array(SIGINT, SIGQUIT, SIGTERM), $oldset); //代码块执行完解除信号屏蔽</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样就可以保证无论什么时候向进程发送信号，这块代码总能执行完程序才会退出！</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2021/09/10/myisam和Innodb的区别/" data-toggle="tooltip" data-placement="top" title="myisam和Innodb的区别">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/09/10/项目启动脚本开发/" data-toggle="tooltip" data-placement="top" title="项目启动脚本开发">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/epimetheusQ">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; epimetheusQ 2021 
+                    <br>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a target="_blank" rel="noopener" href="http://omnimate.cn">epimetheusQ</a> |
+<!--                    <iframe-->
+<!--                        style="margin-left: 2px; margin-bottom:-5px;"-->
+<!--                        frameborder="0" scrolling="0" width="91px" height="20px"-->
+<!--                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >-->
+<!--                    </iframe>-->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+
+<script src="/js/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/js/hux-blog.min.js"></script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://example.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://example.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

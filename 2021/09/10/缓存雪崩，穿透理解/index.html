@@ -13,11 +13,11 @@
 
     <title>
         
-          phpstrom快捷键 - epimetheus的博客 | epimetheusQ&#39;s Blog
+          缓存雪崩，穿透理解 - epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/2021/08/24/phpstrom快捷键/">
+    <link rel="canonical" href="http://example.com/2021/09/10/缓存雪崩，穿透理解/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -168,14 +168,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#PHP" title="PHP">PHP</a>
+                          <a class="tag" href="/tags/#缓存" title="缓存">缓存</a>
                         
                     </div>
-                    <h1>phpstrom快捷键</h1>
+                    <h1>缓存雪崩，穿透理解</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by epimetheusQ on
-                        2021-08-24
+                        2021-09-10
                     </span>
                 </div>
             </div>
@@ -194,9 +194,26 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="选中一些代码，进行前进一个tab，或者退后一个tab"><a href="#选中一些代码，进行前进一个tab，或者退后一个tab" class="headerlink" title="选中一些代码，进行前进一个tab，或者退后一个tab"></a>选中一些代码，进行前进一个tab，或者退后一个tab</h3><blockquote>
-<p>前进一个tab<br>直接tab<br>后退一个tab<br>shift + tab<br>```</p>
-</blockquote>
+                <h1 id="缓存异常处理"><a href="#缓存异常处理" class="headerlink" title="缓存异常处理"></a>缓存异常处理</h1><h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p>由于原有缓存失效，新缓存未设置成功期间（例如我们设置缓存时采用了相同的过期时间，在同一时刻出现大面积缓存过期），所有原本应该访问缓存的请求都去查询数据库了，而对数据库CPU和内存造成巨大压力，严重会造成数据库宕机，从而形成一系列连锁反应，造成整个系统崩溃。</p>
+<p>缓存失效时的雪崩效应对底层系统的冲击非常可怕，大多数系统设计者考虑加锁或者队列的方式保证来不会有大量的线程对数据库一次性进行读写，从而避免失效时大量的并发请求落到底层存储系统上。还有一个简单的方案就是讲缓存失效时间分散开，比如我们可以再原有的失效时间基础上增加一个随机值，比如1-5分钟随机，这样每一个缓存的过期时间的重复率就会降低，就很难引发集体失效的事件。</p>
+<h3 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h3><p>1.设置随机过期事件，使缓存很难再同一时间集体过期。<br>2.做二级缓存，或者双缓存策略，A1位原始缓存，A2为拷贝缓存，A1失效时，可以访问A2，A1缓存失效时间设置为短期，A2设置为长期。</p>
+<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>缓存穿透是指用户查询数据，在数据库没有，自然在缓存中也不会有。这样就导致用户查询的时候，在缓存中找不到，每次都要去数据库在查询一次，然后返回空（相当于做了两次无用的查询）。这样请求就绕过缓存直接查数据库，这也是经常提的缓存命中率的问题。</p>
+<h3 id="解决方式-1"><a href="#解决方式-1" class="headerlink" title="解决方式"></a>解决方式</h3><h4 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h4><p>将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。</p>
+<h4 id="对空结果缓存"><a href="#对空结果缓存" class="headerlink" title="对空结果缓存"></a>对空结果缓存</h4><p>一个更为简单粗暴的方法，如果一个查询返回的数据为空（不管是数据不存在，还是系统故障），我们仍然把这个空结果进行缓存，但他的过期事件会很短，最长不超过5分钟，通过这个直接设置的默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库，这种办法最简单粗暴，把结果缓存起来，这样下次访问同样的值直接返回空，既可以避免当查询的值为空时引起的缓存穿透，同时也可以单独设置个缓存区域存储空值，对要查询的key预先校验，然后在放行给后面的正常缓存处理逻辑。</p>
+<h3 id="缓存预热"><a href="#缓存预热" class="headerlink" title="缓存预热"></a>缓存预热</h3><p>缓存预热就是系统上线后，将相关的缓存数据直接加载到缓存系统，这样就可以避免在用户请求的时候，先查询数据库，然后再将数据缓存的问题，用户直接查询事先被预热的缓存数据。</p>
+<p>1.直接写一个缓存刷新页面，上线时手工操作一下。<br>2.数据量不大，可以在项目启动的时候自动进行加载。<br>3.定时刷新缓存。</p>
+<h3 id="缓存更新"><a href="#缓存更新" class="headerlink" title="缓存更新"></a>缓存更新</h3><p>1.定时去清理过期的缓存<br>2.当有用户请求过来时，在判断这个请求所用到的缓存是否过期，过期的话就去底层系统得到新数据并更新缓存。</p>
+<h3 id="缓存降级"><a href="#缓存降级" class="headerlink" title="缓存降级"></a>缓存降级</h3><p>当访问量剧增、服务出现问题（如响应时间慢或不响应）或非核心服务影响到核心流程的性能时，仍然需要保证服务还是可用的，即使是有损服务。系统可以根据一些关键数据进行自动降级，也可以配置开关实现人工降级。</p>
+<h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>降级的最终目的是保证核心服务可用，即使是有损的，而且有些服务是无法降级的（如购物车、结算）。在进行降级之前要对系统进行梳理，看看系统是不是可以丢卒保帅，从而梳理出那些必须誓死保护，哪些可以降级，比如可以参考日志级别设置预案。</p>
+<pre><code>1.一般：比如有些服务偶尔因为网络抖动或者服务正在上线而超时，可以自动降级。
+2.警告：有些服务在一段时间内成功率有波动，可以自动降级或者人工降级，并发送警告。
+3.错误：比如可用率低于90%，或者数据库连接池被打爆了，或者访问量突然猛增到系统承受的最大阈值，此时可以根据情况自动降级或者人工降级。
+4.严重错误：比如因为特殊原因数据错误了，此时需要紧急人工降级。
+</code></pre>
+<h4 id="删除策略"><a href="#删除策略" class="headerlink" title="删除策略"></a>删除策略</h4><p>Redis服务器使用惰性删除和定期删除两种方式，通过配合使用两种策略，服务器可以很好的合理的使用CPU和避免内存空间之间取得平衡。</p>
+<h5 id="定时删除"><a href="#定时删除" class="headerlink" title="定时删除"></a>定时删除</h5><p>在设置键的过期时间的同时，创建一个定时器，让定时器在键的过期时间来立即执行对键的删除操作。</p>
+<h5 id="惰性删除"><a href="#惰性删除" class="headerlink" title="惰性删除"></a>惰性删除</h5><p>放任键过期不管，但是每次从键空间获取键时，都能检测获取的键是否过期，如果过期的话，就删除该键，如果没有过期，就返回该键。</p>
+<h5 id="定期删除"><a href="#定期删除" class="headerlink" title="定期删除"></a>定期删除</h5><p>每隔一段时间，程序就对数据库进行一次查询，删除里面过期的键。</p>
 
 
                 <hr>
@@ -206,12 +223,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/08/24/nginx快捷命令/" data-toggle="tooltip" data-placement="top" title="nginx快捷命令">&larr; Previous Post</a>
+                            <a href="/2021/09/10/网站安全之xss、csrf、sql注入/" data-toggle="tooltip" data-placement="top" title="网站安全之xss、csrf、sql注入">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2021/08/20/php脚本加速/" data-toggle="tooltip" data-placement="top" title="php脚本加速">Next Post &rarr;</a>
+                            <a href="/2021/09/10/kafka命令/" data-toggle="tooltip" data-placement="top" title="kafka命令">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
