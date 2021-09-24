@@ -187,6 +187,30 @@
 
 <div class="post-preview">
 
+    <a href="/2021/09/24/nginx错误处理/">
+        <h2 class="post-title">
+            nginx错误处理
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            nginx 错误处理nginx 不存在nginx.pid在执行nginx -s reload 时，报错：nginx: [error] open() “/usr/local/var/run/nginx.pid” failed (2: No such file or directory)
+原因：在该目录下，未找到nginx.pid文件
+使用nginx -t 获取到nginx.conf文件位置
+1......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-09-24
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2021/09/10/mysql内部执行原理/">
         <h2 class="post-title">
             mysql内部执行原理
@@ -415,27 +439,6 @@ kafka日期存储地址/......
 MyISAM会保存表的总行数。Innodb不会保存表的总行数。如果使用sql count取值，innodb会遍历整个表。当加入where条件是两种类型处理模式一致。
 MyISAM支持全文索引，Innodb不支持。
 什么是事务？1.原子性：一个事务中的所有操作，要么全部完成，要么全部不完成，不会结束在中间的某个环节。事务在执行中发生错误，会......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by epimetheusQ on
-        2021-09-10
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2021/09/10/信号/">
-        <h2 class="post-title">
-            信号
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            信号关于php的declare语句中的tick的解释什么是declaredeclare是php的流程控制结构，directive目前支持两个指令（ticks和encoding），ticks的使用配合register_tick_function()（当然还有unregister_tick_function()）使用。declare结构用来设定一段代码的执行指令。declare的语法和其它流程控......
         </div>
     </a>
     <p class="post-meta">

@@ -13,11 +13,11 @@
 
     <title>
         
-          epimetheus的博客 | epimetheusQ&#39;s Blog
+          nginx错误处理 - epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/page/3/">
+    <link rel="canonical" href="http://example.com/2021/09/24/nginx错误处理/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -150,164 +150,106 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>epimetheusQ</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">上帝如风，无所不触</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Nginx" title="Nginx">Nginx</a>
+                        
+                    </div>
+                    <h1>nginx错误处理</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by epimetheusQ on
+                        2021-09-24
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <!-- Main Content -->
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="nginx-错误处理"><a href="#nginx-错误处理" class="headerlink" title="nginx 错误处理"></a>nginx 错误处理</h2><h3 id="nginx-不存在nginx-pid"><a href="#nginx-不存在nginx-pid" class="headerlink" title="nginx 不存在nginx.pid"></a>nginx 不存在nginx.pid</h3><p>在执行nginx -s reload 时，报错：nginx: [error] open() “/usr/local/var/run/nginx.pid” failed (2: No such file or directory)</p>
+<p>原因：在该目录下，未找到nginx.pid文件</p>
+<p>使用nginx -t 获取到nginx.conf文件位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful</span><br></pre></td></tr></table></figure>
+
+<p>然后执行:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /usr/local/etc/nginx/nginx.conf</span><br><span class="line">nginx -s reload </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>即可解决。</p>
 
 
-<div class="post-preview">
+                <hr>
 
-    <a href="/2021/08/13/composer创建library包/">
-        <h2 class="post-title">
-            composer创建library包
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            注意事项
-参考demo的例子：https://github.com/epimetheusQ/omnimate.git
-git 强制推送   git push -u origin master -f （强制推送，慎用）
-在composer init时，如果创建一个项目，写project，如果想写一个类似于hyperf/validation的话，就需要选择library，其余暂未研究过。
-即使你......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by epimetheusQ on
-        2021-08-13
-    </p>
+                
 
-</div>
-<hr>
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/09/10/mysql内部执行原理/" data-toggle="tooltip" data-placement="top" title="mysql内部执行原理">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
-<div class="post-preview">
+                
 
-    <a href="/2021/08/13/hexo的基本使用方式/">
-        <h2 class="post-title">
-            hexo的基本使用方式
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by epimetheusQ on
-        2021-08-13
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/page/2/">&larr; Newer Posts</a>
-        </li>
-    
-    
-</ul>
-
-
-
-                <!-- 如果开启评论功能 -->
                 
 
             </div>
+    <!-- Side Catalog Container -->
+        
+
     <!-- Sidebar Container -->
+
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-                            <img src="/img/avatar.jpg" />
-                        
-
-                        
-                            <p>懒惰的黑铁PHP开发工程师</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/epimetheusQ">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
                 <!-- Friends Blog -->
                 
             </div>
-        
+
+        </div>
     </div>
-</div>
+</article>
+
+
+
+
+
+
+
 
 
     <!-- Footer -->
