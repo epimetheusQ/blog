@@ -13,11 +13,11 @@
 
     <title>
         
-          nginx错误处理 - epimetheus的博客 | epimetheusQ&#39;s Blog
+          hyperf.docker基本启动命令实践 - epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/2021/09/24/nginx错误处理/">
+    <link rel="canonical" href="http://example.com/2021/09/29/hyperf-docker基本启动命令实践/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -168,14 +168,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#Nginx" title="Nginx">Nginx</a>
+                          <a class="tag" href="/tags/#DOCKER" title="DOCKER">DOCKER</a>
                         
                     </div>
-                    <h1>nginx错误处理</h1>
+                    <h1>hyperf.docker基本启动命令实践</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by epimetheusQ on
-                        2021-09-24
+                        2021-09-29
                     </span>
                 </div>
             </div>
@@ -194,15 +194,46 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="nginx-错误处理"><a href="#nginx-错误处理" class="headerlink" title="nginx 错误处理"></a>nginx 错误处理</h2><h3 id="nginx-不存在nginx-pid"><a href="#nginx-不存在nginx-pid" class="headerlink" title="nginx 不存在nginx.pid"></a>nginx 不存在nginx.pid</h3><p>在执行nginx -s reload 时，报错：nginx: [error] open() “/usr/local/var/run/nginx.pid” failed (2: No such file or directory)</p>
-<p>原因：在该目录下，未找到nginx.pid文件</p>
-<p>使用nginx -t 获取到nginx.conf文件位置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful</span><br></pre></td></tr></table></figure>
+                <h2 id="什么是容器"><a href="#什么是容器" class="headerlink" title="什么是容器"></a>什么是容器</h2><p>image是镜像，通过copy镜像，形成一个container。</p>
+<h2 id="hyperf通过容器基本命令进行启动"><a href="#hyperf通过容器基本命令进行启动" class="headerlink" title="hyperf通过容器基本命令进行启动"></a>hyperf通过容器基本命令进行启动</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name hyperf -v /usr/local/var/WWWW:/data/project -p 9401:9401 -p 9501:9501 -it --privileged -u root --entrypoint /bin/bash hyperf/hyperf:7.4-alpine-v3.11-swoole</span><br></pre></td></tr></table></figure>
+<pre><code>    -d 后台运行
+    --name 别名
+    -v 映射共享目录，&#123;本地路径&#125;:&#123;容器内路径&#125;
+    -p 开放端口
+    -it 交互方式
+    --entrypoint 进入容器后需要执行的命令 /bin/bash 代表需要打开交互
+    -u 指定执行命令时，所使用的用户，不指定时，默认以root用户执行
 
-<p>然后执行:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /usr/local/etc/nginx/nginx.conf</span><br><span class="line">nginx -s reload </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    -e 指定环境变量， 格式  -e XXX_XXX=&#39;xxxxx&#39;
 
-<p>即可解决。</p>
+    这些统称为参数，执行文件是：hyperf/hyperf:7.4-alpine-v3.11-swoole
+
+    此时，下载了hyperf/hyperf:7.4-alpine-v3.11-swoole，并且在后台执行了这个image，生成了一个新的容器，run就是生成一个新的容器。
+
+    docker ps 查看正在运行的容器
+
+    进入容器内部 docker exec -it &#123;containerId&#125; /bin/bash 进入 /data/project 发现并未和宿主机的项目对应起来，检查发现路径错误，导致路径没有被检索到。
+
+    停掉容器
+    docker stop &#123;containerId&#125;
+    docker rm  &#123;containerId&#125;
+
+    然后执行：
+    docker run -d --name hyperf -v /usr/local/var/www:/data/project -p 9401:9401 -p 9501:9501 -it --privileged -u root --entrypoint /bin/bash hyperf/hyperf:7.4-alpine-v3.11-swoole
+
+    docker ps 查看正在运行中的容器，找到容器对应的containerId，docker exec -it &#123;containerId&#125; /bin/bash
+
+    进入容器后，exit退出来。
+
+    docker stop &#123;containerId&#125; 关闭容器。
+
+    docker ps -a 查看所有执行过得容器，找到我们的容器（可以设置别名）
+
+    docker start &#123;containerId&#125;
+    docker exec -it &#123;containerId&#125; /bin/bash
+
+    .....
+</code></pre>
 
 
                 <hr>
@@ -211,13 +242,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2021/09/29/hyperf-docker基本启动命令实践/" data-toggle="tooltip" data-placement="top" title="hyperf.docker基本启动命令实践">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2021/09/10/mysql内部执行原理/" data-toggle="tooltip" data-placement="top" title="mysql内部执行原理">Next Post &rarr;</a>
+                            <a href="/2021/09/24/nginx错误处理/" data-toggle="tooltip" data-placement="top" title="nginx错误处理">Next Post &rarr;</a>
                         </li>
                     
                 </ul>

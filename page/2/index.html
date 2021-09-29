@@ -187,6 +187,30 @@
 
 <div class="post-preview">
 
+    <a href="/2021/09/10/myisam和Innodb的区别/">
+        <h2 class="post-title">
+            myisam和Innodb的区别
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            MyISAM只支持表级锁InnoDB支持事务和行级锁
+MyISAM会保存表的总行数。Innodb不会保存表的总行数。如果使用sql count取值，innodb会遍历整个表。当加入where条件是两种类型处理模式一致。
+MyISAM支持全文索引，Innodb不支持。
+什么是事务？1.原子性：一个事务中的所有操作，要么全部完成，要么全部不完成，不会结束在中间的某个环节。事务在执行中发生错误，会......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-09-10
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2021/09/10/信号/">
         <h2 class="post-title">
             信号
@@ -381,30 +405,6 @@ nginx1234sudo nginxsudo nginx -s rel......
     <p class="post-meta">
         Posted by epimetheusQ on
         2021-08-16
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2021/08/14/日志增加request-id/">
-        <h2 class="post-title">
-            日志增加request_id
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            日志增加request_id
-日志增加request_id，可以通过关键字查看整个日志的链路信息，提升bug查找速度，以及外部对接进度。
-
-hyperf和传统的框架不同，传统框架可以通过request，在框架初始化时增加request_id，实现整个进程日志记录同一个request_id，但是hyperf是协程的方式运作的，当我们使用协程时，request_id会因为协程的使用而导致requ......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by epimetheusQ on
-        2021-08-14
     </p>
 
 </div>

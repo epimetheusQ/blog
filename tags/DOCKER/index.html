@@ -13,11 +13,11 @@
 
     <title>
         
-          nginx错误处理 - epimetheus的博客 | epimetheusQ&#39;s Blog
+          epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/2021/09/24/nginx错误处理/">
+    <link rel="canonical" href="http://example.com/tags/DOCKER/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -150,111 +150,7 @@
 
 
     <!-- Main Content -->
-    
-<!-- Image to hack wechat -->
-<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/home-bg.jpg')
-    }
-</style>
-<header class="intro-header" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                          <a class="tag" href="/tags/#Nginx" title="Nginx">Nginx</a>
-                        
-                    </div>
-                    <h1>nginx错误处理</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by epimetheusQ on
-                        2021-09-24
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <h2 id="nginx-错误处理"><a href="#nginx-错误处理" class="headerlink" title="nginx 错误处理"></a>nginx 错误处理</h2><h3 id="nginx-不存在nginx-pid"><a href="#nginx-不存在nginx-pid" class="headerlink" title="nginx 不存在nginx.pid"></a>nginx 不存在nginx.pid</h3><p>在执行nginx -s reload 时，报错：nginx: [error] open() “/usr/local/var/run/nginx.pid” failed (2: No such file or directory)</p>
-<p>原因：在该目录下，未找到nginx.pid文件</p>
-<p>使用nginx -t 获取到nginx.conf文件位置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful</span><br></pre></td></tr></table></figure>
-
-<p>然后执行:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /usr/local/etc/nginx/nginx.conf</span><br><span class="line">nginx -s reload </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>即可解决。</p>
-
-
-                <hr>
-
-                
-
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/2021/09/29/hyperf-docker基本启动命令实践/" data-toggle="tooltip" data-placement="top" title="hyperf.docker基本启动命令实践">&larr; Previous Post</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2021/09/10/mysql内部执行原理/" data-toggle="tooltip" data-placement="top" title="mysql内部执行原理">Next Post &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                
-
-                
-
-            </div>
-    <!-- Side Catalog Container -->
-        
-
-    <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-
-                <!-- Friends Blog -->
-                
-            </div>
-
-        </div>
-    </div>
-</article>
-
-
-
-
-
-
-
-
+    <!-- Default Archive layout, we use archives instead. -->
 
     <!-- Footer -->
     <!-- Footer -->
