@@ -187,6 +187,29 @@
 
 <div class="post-preview">
 
+    <a href="/2021/10/07/macbook在docker中运行hyperf代码无法同步问题解决/">
+        <h2 class="post-title">
+            macbook在docker中运行hyperf代码无法同步问题解决
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Mac在docker中运行hyperf代码无法同步问题解决更换电脑，安装docker后，可以正常启动hyperf项目，但是一旦更新hyperf代码，docker容器内的代码却没有更新。
+通过查阅资料和多次尝试发现，是由于本地修改代码后，docker内部无法时时更新，进入容器，针对该项目执行：
+123456# 1. 进入docker容器中docker exec -it 539803d55274......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2021-10-07
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2021/09/29/hyperf-docker基本启动命令实践/">
         <h2 class="post-title">
             hyperf.docker基本启动命令实践
@@ -411,32 +434,6 @@ XSS主要有如下三种分类：
         <div class="post-content-preview">
             缓存异常处理缓存雪崩由于原有缓存失效，新缓存未设置成功期间（例如我们设置缓存时采用了相同的过期时间，在同一时刻出现大面积缓存过期），所有原本应该访问缓存的请求都去查询数据库了，而对数据库CPU和内存造成巨大压力，严重会造成数据库宕机，从而形成一系列连锁反应，造成整个系统崩溃。
 缓存失效时的雪崩效应对底层系统的冲击非常可怕，大多数系统设计者考虑加锁或者队列的方式保证来不会有大量的线程对数据库一......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by epimetheusQ on
-        2021-09-10
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2021/09/10/kafka命令/">
-        <h2 class="post-title">
-            kafka命令
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            kafka命令相关kafka命令行执行流程1.开启zookeeper
-2.开启kafka
-3.若监视某队列，可以使用kafka-console命令
-kafka本机命令执行地址/usr/local/cellar/kafka/2.1.0/libexec
-zookeeper本机命令执行地址/usr/local/cellar/zookeeper/3.4.13/libexec
-kafka日期存储地址/......
         </div>
     </a>
     <p class="post-meta">

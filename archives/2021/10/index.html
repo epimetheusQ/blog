@@ -13,11 +13,11 @@
 
     <title>
         
-          hyperf.docker基本启动命令实践 - epimetheus的博客 | epimetheusQ&#39;s Blog
+          epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/2021/09/29/hyperf-docker基本启动命令实践/">
+    <link rel="canonical" href="http://example.com/archives/2021/10/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -150,142 +150,7 @@
 
 
     <!-- Main Content -->
-    
-<!-- Image to hack wechat -->
-<!-- <img src="http://example.com/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/home-bg.jpg')
-    }
-</style>
-<header class="intro-header" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                          <a class="tag" href="/tags/#DOCKER" title="DOCKER">DOCKER</a>
-                        
-                    </div>
-                    <h1>hyperf.docker基本启动命令实践</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by epimetheusQ on
-                        2021-09-29
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <h2 id="什么是容器"><a href="#什么是容器" class="headerlink" title="什么是容器"></a>什么是容器</h2><p>image是镜像，通过copy镜像，形成一个container。</p>
-<h2 id="hyperf通过容器基本命令进行启动"><a href="#hyperf通过容器基本命令进行启动" class="headerlink" title="hyperf通过容器基本命令进行启动"></a>hyperf通过容器基本命令进行启动</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name hyperf -v /usr/local/var/WWWW:/data/project -p 9401:9401 -p 9501:9501 -it --privileged -u root --entrypoint /bin/bash hyperf/hyperf:7.4-alpine-v3.11-swoole</span><br></pre></td></tr></table></figure>
-<pre><code>    -d 后台运行
-    --name 别名
-    -v 映射共享目录，&#123;本地路径&#125;:&#123;容器内路径&#125;
-    -p 开放端口
-    -it 交互方式
-    --entrypoint 进入容器后需要执行的命令 /bin/bash 代表需要打开交互
-    -u 指定执行命令时，所使用的用户，不指定时，默认以root用户执行
-
-    -e 指定环境变量， 格式  -e XXX_XXX=&#39;xxxxx&#39;
-
-    这些统称为参数，执行文件是：hyperf/hyperf:7.4-alpine-v3.11-swoole
-
-    此时，下载了hyperf/hyperf:7.4-alpine-v3.11-swoole，并且在后台执行了这个image，生成了一个新的容器，run就是生成一个新的容器。
-
-    docker ps 查看正在运行的容器
-
-    进入容器内部 docker exec -it &#123;containerId&#125; /bin/bash 进入 /data/project 发现并未和宿主机的项目对应起来，检查发现路径错误，导致路径没有被检索到。
-
-    停掉容器
-    docker stop &#123;containerId&#125;
-    docker rm  &#123;containerId&#125;
-
-    然后执行：
-    docker run -d --name hyperf -v /usr/local/var/www:/data/project -p 9401:9401 -p 9501:9501 -it --privileged -u root --entrypoint /bin/bash hyperf/hyperf:7.4-alpine-v3.11-swoole
-
-    docker ps 查看正在运行中的容器，找到容器对应的containerId，docker exec -it &#123;containerId&#125; /bin/bash
-
-    进入容器后，exit退出来。
-
-    docker stop &#123;containerId&#125; 关闭容器。
-
-    docker ps -a 查看所有执行过得容器，找到我们的容器（可以设置别名）
-
-    docker start &#123;containerId&#125;
-    docker exec -it &#123;containerId&#125; /bin/bash
-
-    .....
-</code></pre>
-
-
-                <hr>
-
-                
-
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/2021/10/07/macbook在docker中运行hyperf代码无法同步问题解决/" data-toggle="tooltip" data-placement="top" title="macbook在docker中运行hyperf代码无法同步问题解决">&larr; Previous Post</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2021/09/24/nginx错误处理/" data-toggle="tooltip" data-placement="top" title="nginx错误处理">Next Post &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                
-
-                
-
-            </div>
-    <!-- Side Catalog Container -->
-        
-
-    <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-
-                <!-- Friends Blog -->
-                
-            </div>
-
-        </div>
-    </div>
-</article>
-
-
-
-
-
-
-
-
+    <!-- Default Archive layout, we use archives instead. -->
 
     <!-- Footer -->
     <!-- Footer -->
