@@ -13,11 +13,11 @@
 
     <title>
         
-          php脚本加速 - epimetheus的博客 | epimetheusQ&#39;s Blog
+          服务压测 - epimetheus的博客 | epimetheusQ&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://example.com/2021/08/20/php脚本加速/">
+    <link rel="canonical" href="http://example.com/2023/03/08/服务压测/">
 
     <!-- Bootstrap Core CSS -->
     
@@ -168,14 +168,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#PHP" title="PHP">PHP</a>
+                          <a class="tag" href="/tags/#LINUX" title="LINUX">LINUX</a>
                         
                     </div>
-                    <h1>php脚本加速</h1>
+                    <h1>服务压测</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by epimetheusQ on
-                        2021-08-20
+                        2023-03-08
                     </span>
                 </div>
             </div>
@@ -194,20 +194,17 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>我们在执行php脚本时，如果存在上百万甚至上千万数据，单线程执行肯定时间很长，所以需要通过其他一些额外手段来进行为脚本加加速。</p>
-<p>当我们使用php原生的脚本进行跑数据时，如果只开单个脚本，也就是一条线程，那么一百万条数据就需要执行100W次，如果我们通过某些参数进行加速，那么开10条线，就每一条脚本只需要耗费1/10的时间。</p>
-<p>php原生包含两个参数，<code>$argv</code> 和 <code>$argc</code>.创建一个a.php查看</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">print_r($argv);</span><br><span class="line">print_r($argc);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>当我们执行脚本 php a.php 1 2 时，</p>
-<p>第一个打印结果是一个数组包含两个参数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    [0] =&gt; 1,</span><br><span class="line">    [1] =&gt; 2</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-
-<p>$argc数量为：2</p>
-<p>通过这种方式，我们可以在制定脚本时，将100w数据，划分10分，并行执行10次。如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">php a.php 0</span><br><span class="line">php a.php 100000</span><br><span class="line">php a.php 200000</span><br><span class="line">php a.php 300000</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
-
-<p>系统内部使用sql，进行分割，确保执行没问题。</p>
+                <h1 id="压测简介"><a href="#压测简介" class="headerlink" title="压测简介"></a>压测简介</h1><h2 id="压测信息"><a href="#压测信息" class="headerlink" title="压测信息"></a>压测信息</h2><p>压测软件：使用Jmeter作为压测软件。<br>压测机器：3台 4C8G主机作为压测机，单台最高可以触发250QPS，3台理论最高750QPS。<br>业务机器：4台 8C16G，按比例均匀分配给13个微服务。</p>
+<h3 id="压测方式"><a href="#压测方式" class="headerlink" title="压测方式"></a>压测方式</h3><p>针对小程序商城压力情况，给出11个压测场景，分别是首页、购物车、确认订单页、下单、商品详情页、（多个）活动页。<br>每一个场景存在多个接口，如购物车存在4个接口，单场景压一次算作一次TPS，通过持续给并发，测算最大TPS。</p>
+<h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h3><p>系统通过tracfik代替nginx，tracfik接收到请求后，转发至k8s容器，k8s通过服务压力，动态给到一个pod，转发给nginx，nginx通过9000端口给php。<br>php微服务用到的服务：</p>
+<ol>
+<li>redis</li>
+<li>Mysql</li>
+</ol>
+<p>故压力点在：<br>tracfik ： 流量、服务器压力<br>k8s：内存、CPU<br>Nginx： work_process<br>PHP_FPM： worker处理数量<br>redis：cpu、内存<br>Mysql：最大连接数、CPU、内存</p>
+<p>接下来就是检测这些数据：</p>
+<p>利用grafana，时时查看k8s中单pod的运行情况，cpu和内存占用率，Mysql运行情况，redis运行情况，宿主机运行情况，tracfik流量情况。</p>
+<h1 id="具体文档"><a href="#具体文档" class="headerlink" title="具体文档"></a>具体文档</h1><p><img src="http://omnimate.cn/img/service-jemeter.pdf" alt="alt "></p>
 
 
                 <hr>
@@ -216,13 +213,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2021/08/24/phpstrom快捷键/" data-toggle="tooltip" data-placement="top" title="phpstrom快捷键">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2021/08/17/sql扫盲计划/" data-toggle="tooltip" data-placement="top" title="sql扫盲计划">Next Post &rarr;</a>
+                            <a href="/2021/10/07/macbook在docker中运行hyperf代码无法同步问题解决/" data-toggle="tooltip" data-placement="top" title="macbook在docker中运行hyperf代码无法同步问题解决">Next Post &rarr;</a>
                         </li>
                     
                 </ul>

@@ -187,6 +187,28 @@
 
 <div class="post-preview">
 
+    <a href="/2023/03/08/服务压测/">
+        <h2 class="post-title">
+            服务压测
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            压测简介压测信息压测软件：使用Jmeter作为压测软件。压测机器：3台 4C8G主机作为压测机，单台最高可以触发250QPS，3台理论最高750QPS。业务机器：4台 8C16G，按比例均匀分配给13个微服务。
+压测方式针对小程序商城压力情况，给出11个压测场景，分别是首页、购物车、确认订单页、下单、商品详情页、（多个）活动页。每一个场景存在多个接口，如购物车存在4个接口，单场景压一次算作一......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by epimetheusQ on
+        2023-03-08
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2021/10/07/macbook在docker中运行hyperf代码无法同步问题解决/">
         <h2 class="post-title">
             macbook在docker中运行hyperf代码无法同步问题解决
@@ -422,28 +444,6 @@ XSS主要有如下三种分类：
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2021/09/10/缓存雪崩，穿透理解/">
-        <h2 class="post-title">
-            缓存雪崩，穿透理解
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            缓存异常处理缓存雪崩由于原有缓存失效，新缓存未设置成功期间（例如我们设置缓存时采用了相同的过期时间，在同一时刻出现大面积缓存过期），所有原本应该访问缓存的请求都去查询数据库了，而对数据库CPU和内存造成巨大压力，严重会造成数据库宕机，从而形成一系列连锁反应，造成整个系统崩溃。
-缓存失效时的雪崩效应对底层系统的冲击非常可怕，大多数系统设计者考虑加锁或者队列的方式保证来不会有大量的线程对数据库一......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by epimetheusQ on
-        2021-09-10
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -552,7 +552,7 @@ XSS主要有如下三种分类：
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; epimetheusQ 2021 
+                    Copyright &copy; epimetheusQ 2023 
                     <br>
                     <span style="display: inline-block; margin: 0 5px;">
                         <i class="fa fa-heart"></i>
